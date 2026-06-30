@@ -1,6 +1,7 @@
 import { useState , useEffect } from "react";
 import axios from "axios";
-
+const API = import.meta.env.VITE_API_URL;
+console.log("ENV =", import.meta.env);
 export default function App() {
 const [projects,setProjects]=useState([]);
 const [projectId,setProjectId] = useState("");
@@ -27,9 +28,7 @@ setStatus("⏳ Generating website...");
 setStatusColor("#f59e0b");
 
 const res = await axios.post(
-
-"http://localhost:5000/api/ai/generate",
-
+`${API}/api/ai/generate`,
 {
 prompt
 }
@@ -103,9 +102,7 @@ const createProject = async()=>{
 try{
 
 const res = await axios.post(
-
-"http://localhost:5000/api/projects",
-
+`${API}/api/projects`,
 {
 
 title:prompt
@@ -152,9 +149,7 @@ try{
 
 
 const res = await axios.put(
-
-"http://localhost:5000/api/projects/save",
-
+`${API}/api/projects/save`,
 {
 
 projectId:id,
@@ -240,9 +235,7 @@ try{
 console.log("FETCHING PROJECTS");
 
 const res = await axios.get(
-
-"http://localhost:5000/api/projects"
-
+`${API}/api/projects`
 );
 
 console.log("RESPONSE");
@@ -382,8 +375,7 @@ console.log(p._id);
 try{
 
 const res = await axios.delete(
-
-`http://localhost:5000/api/projects/${p._id}`
+`${API}/api/projects/${p._id}`
 
 );
 
@@ -437,8 +429,7 @@ console.log("ID:",p._id);
 console.log("TITLE:",title);
 
 const res = await axios.put(
-
-`http://localhost:5000/api/projects/${p._id}`,
+`${API}/api/projects/${p._id}`,
 
 {
 title
@@ -451,8 +442,8 @@ console.log("RENAME RESPONSE");
 console.log(res.data);
 
 const refreshed = await axios.get(
+`${API}/api/projects`
 
-"http://localhost:5000/api/projects"
 
 );
 
